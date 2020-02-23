@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+    height: 100%;
+    border-spacing: 0;
+}
+
+td {
+    border: 1px solid #98a4e6;
+}
+
+td.start {
+    background: dodgerblue;
+}
+
+td.end {
+    background: red;
+}
+
+td.unvisited {
+    background: white;
+}
+
+td.visited {
+    background: green;
+}
+
+td.wall {
+    background: black;
+    animation: appearWall 0.3 ease-out forwards;
+}
+
+td.path {
+    background: gold;
+}
+
+@keyframes appearWall {
+    0% {
+        transform: scale(0.2);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

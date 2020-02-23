@@ -1,14 +1,14 @@
-<p align="center">
-    <img height="100" alt="Icon" src="assets/web-programming.svg" />
-</p>
+# Path finding
 
-# Front end starter
-
-This is a simple front end development (HTML, CSS, JS) starter template
-with configured Babel, Webpack, Jest, GitHub Pages deployment.
+Visualization of path finding algorithms.
 
 ## Usage
 
 - build & serve the app in development mode `npm start`
 - run optimized build for production `npm build`
 - deploy the app to your gh-pages branch `npm run deploy`
+
+## Cool stuff on graphs
+- [Grids and Graphs](https://www.redblobgames.com/pathfinding/grids/graphs.html)
+- [Amit on Pathfinding and A*](http://theory.stanford.edu/~amitp/GameProgramming/)
+- [Introduction to A*](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
