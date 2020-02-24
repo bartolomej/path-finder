@@ -10,6 +10,16 @@ body {
 
 #controls-container {
     height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#controls-container label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 #grid-container {

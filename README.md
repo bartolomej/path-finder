@@ -4,6 +4,7 @@ Visualization of path finding algorithms.
 
 ## Usage
 
+- run all tests `npm test`
 - build & serve the app in development mode `npm start`
 - run optimized build for production `npm build`
 - deploy the app to your gh-pages branch `npm run deploy`
