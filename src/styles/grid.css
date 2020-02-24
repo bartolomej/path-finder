@@ -36,7 +36,7 @@ td.unvisited {
 }
 
 td.visited {
-    background: green;
+    background: rgba(128, 95, 0, 0.7);
 }
 
 td.wall {

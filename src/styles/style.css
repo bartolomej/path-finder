@@ -13,6 +13,7 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background: rgb(12, 53, 71);;
 }
 
 #controls-container label {

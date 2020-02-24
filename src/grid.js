@@ -1,5 +1,4 @@
 import Node, { NodeType } from "./node";
-import { pause, random } from "./utils";
 
 
 export default class Grid {
@@ -27,6 +26,7 @@ export default class Grid {
   }
 
   handleUserInteraction () {
+    // TODO: better design this interaction (maybe abstract in its own class)
     const handleDrag = () => {
       if (this.prevOverNode) {
         this.prevOverNode.mark(NodeType.UNVISITED);
@@ -37,7 +37,6 @@ export default class Grid {
     };
     if (
       this.mouseDown &&
-      this.draggingNodeType !== NodeType.WALL &&
       (this.overNode.equals(this.startNode) || this.draggingNodeType === NodeType.START)
     ) {
       this.draggingNodeType = NodeType.START;
@@ -46,16 +45,13 @@ export default class Grid {
     }
     if (
       this.mouseDown &&
-      this.draggingNodeType !== NodeType.WALL &&
       (this.overNode.equals(this.endNode) || this.draggingNodeType === NodeType.END)
     ) {
       this.draggingNodeType = NodeType.END;
       this.overNode.mark(NodeType.END);
       handleDrag();
-    }
-    else if (this.mouseDown) {
+    } else if (this.mouseDown) {
       this.overNode.invert();
-      this.draggingNodeType = NodeType.WALL;
     }
     if (!this.mouseDown && this.draggingNodeType) {
       this.draggingNodeType = null;
@@ -67,12 +63,11 @@ export default class Grid {
         this.endNode = this.overNode;
       }
     }
-    this.updateEdges();
   }
 
   registerListeners () {
-    document.addEventListener('mousedown', this.onMouseDown.bind(this));
-    document.addEventListener('mouseup', this.onMouseUp.bind(this));
+    this.parent.addEventListener('mousedown', this.onMouseDown.bind(this));
+    this.parent.addEventListener('mouseup', this.onMouseUp.bind(this));
     this.onMouseOverNodeListeners();
   }
 
@@ -87,8 +82,8 @@ export default class Grid {
     }
   }
 
-  onMouseOverNode(e) {
-    const id = e.target.id.split(',').map(parseFloat);
+  onMouseOverNode (e) {
+    const id = Node.strIdToArray(e.target.id);
     this.overNode = this.nodes[id[0]][id[1]];
     this.handleUserInteraction();
   }
@@ -120,47 +115,11 @@ export default class Grid {
     this.endNode.mark(NodeType.END);
   }
 
-  updateEdges () {
-    for (let i = 0; i < this.nodes.length; i++) {
-      for (let j = 0; j < this.nodes[0].length; j++) {
-        const node = this.nodes[i][j];
-        if (node.type === NodeType.WALL) {
-          node.removeEdges();
-        }
-      }
-    }
-  }
-
   initializeEdges () {
     for (let i = 0; i < this.nodes.length; i++) {
       for (let j = 0; j < this.nodes[0].length; j++) {
         const node = this.nodes[i][j];
         node.edges = this.neighbors(node);
-      }
-    }
-  }
-
-  async generateMaze () {
-    let stack = [];
-    let current = this.nodes[0][0];
-    current.markVisited();
-    stack.push(current);
-    while (stack.length > 0) {
-      await pause(10);
-      let edges = current.unvisitedNeighbours();
-      let next = edges[random(edges.length - 1)];
-      while (next && (next.visitedNeighbours().length > 1 || next.isStartOrEnd())) {
-        let index = random(edges.length - 1);
-        next = edges[index];
-        edges.splice(index, 1);
-      }
-      if (next) {
-        next.markVisited();
-        current.markWall();
-        stack.push(current);
-        current = next;
-      } else if (stack.length > 0) {
-        current = stack.pop();
       }
     }
   }

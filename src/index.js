@@ -3,6 +3,7 @@ import "./styles/grid.css";
 import "./styles/controls.css";
 import Grid from "./grid";
 import { SelectionInput } from "./inputs";
+import { pattern, search } from "./algorithms";
 
 
 let grid;
@@ -21,19 +22,21 @@ async function init () {
 }
 
 function renderControls () {
-  const algorithmsInput = new SelectionInput('Algorithms', [
-    { name: "Dijkstra's algorithm", id: 'da' }
+  const searchInput = new SelectionInput('Algorithms', [
+    { name: "Breath First Search", id: 'BFS' }
   ], controlsContainer);
-  algorithmsInput.onInput = function (value) {
-    console.log(value)
+  searchInput.onInput = async function (value) {
+    if (value === 'BFS') {
+      await search.breathFirstSearch(grid.startNode, grid.endNode);
+    }
   };
 
-  const patternsInput = new SelectionInput('Wall patterns', [
-    { name: 'Recursive backtrack maze', id: 'rbm' }
+  const patternInput = new SelectionInput('Wall patterns', [
+    { name: 'Recursive backtrack maze', id: 'RBT' }
   ], controlsContainer);
-  patternsInput.onInput = async function (value) {
-    if (value === 'rbm') {
-      await grid.generateMaze();
+  patternInput.onInput = async function (value) {
+    if (value === 'RBT') {
+      await pattern.recursiveBacktrack(grid.nodes);
     }
   };
 }

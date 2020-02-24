@@ -21,6 +21,10 @@ export default class Node {
     this.visited = false;
   }
 
+  get strId () {
+    return `${this.id[0]}-${this.id[1]}`;
+  }
+
   removeEdges () {
     for (let i = this.edges.length - 1; i >= 0; i--) {
       this.removeEdge(this.edges[i]);
@@ -31,25 +35,19 @@ export default class Node {
     return this.type === NodeType.START || this.type === NodeType.END;
   }
 
-  mark (type) {
+  mark (type, removeEdges = true) {
     this.type = type;
-    this.updateDom();
-  }
-
-  markVisited () {
-    this.visited = true;
-  }
-
-  markWall () {
-    this.type = NodeType.WALL;
+    if (this.type === NodeType.WALL && removeEdges) {
+      this.removeEdges();
+    }
     this.updateDom();
   }
 
   invert () {
     if (this.type === NodeType.WALL) {
-      this.type = NodeType.UNVISITED;
+      this.mark(NodeType.UNVISITED);
     } else if (this.type === NodeType.UNVISITED) {
-      this.type = NodeType.WALL;
+      this.mark(NodeType.WALL);
     }
     this.updateDom();
   }
@@ -59,6 +57,18 @@ export default class Node {
     for (let edge of this.edges) {
       if (edge.visited) {
         visited.push(edge);
+      }
+    }
+    return visited;
+  }
+
+  visitedSecondDegreeNeighbours () {
+    const visited = [];
+    for (let edge of this.edges) {
+      for (let e of edge.edges) {
+        if (e.visited) {
+          visited.push(e);
+        }
       }
     }
     return visited;
@@ -94,9 +104,13 @@ export default class Node {
 
   generateDom () {
     this.domElement = document.createElement('td');
-    this.domElement.id = this.id;
+    this.domElement.id = this.strId;
     this.domElement.class = this.type;
     this.updateDom();
+  }
+
+  static strIdToArray (str) {
+    return str.split('-').map(parseFloat);
   }
 
 }
