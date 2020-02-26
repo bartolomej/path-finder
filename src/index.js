@@ -1,9 +1,9 @@
 import "./styles/style.css";
 import "./styles/grid.css";
 import "./styles/controls.css";
-import Grid from "./grid";
-import { SelectionInput } from "./inputs";
-import { pattern, search } from "./algorithms";
+import Grid from "./graph/grid";
+import { SelectionInput } from "./utils/inputs";
+import { pattern, search } from "./graph/algorithms";
 
 
 let grid;
@@ -23,11 +23,15 @@ async function init () {
 
 function renderControls () {
   const searchInput = new SelectionInput('Algorithms', [
-    { name: "Breath First Search", id: 'BFS' }
+    { name: "Breath First Search", id: 'BFS' },
+    { name: "Depth First Search", id: 'DFS' },
   ], controlsContainer);
   searchInput.onInput = async function (value) {
     if (value === 'BFS') {
       await search.breathFirstSearch(grid.startNode, grid.endNode);
+    }
+    if (value === 'DFS') {
+      await search.depthFirstSearch(grid.startNode, grid.endNode);
     }
   };
 
@@ -47,5 +51,6 @@ function renderGrid () {
   const y = x / (Math.round(ratio * 10) / 10);
   grid = null;
   grid = new Grid([x, y], gridContainer);
+  grid.init();
   window.grid = grid;
 }

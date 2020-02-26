@@ -1,5 +1,5 @@
-import { pause, random } from "./utils";
-import { NodeType } from "./node";
+import { pause, random } from "../utils/utils";
+import Node, { NodeType } from "./node";
 
 
 export const pattern = {
@@ -7,7 +7,8 @@ export const pattern = {
 };
 
 export const search = {
-  breathFirstSearch
+  breathFirstSearch,
+  depthFirstSearch
 };
 
 async function recursiveBacktrack (nodes) {
@@ -16,7 +17,7 @@ async function recursiveBacktrack (nodes) {
       if (i % 5 === 0) await pause(1);
       const node = nodes[i][j];
       if (!node.isStartOrEnd()) {
-        nodes[i][j].mark(NodeType.WALL, false); // TODO: quirky solutions !!
+        nodes[i][j].mark(NodeType.WALL);
       }
     }
   }
@@ -25,7 +26,7 @@ async function recursiveBacktrack (nodes) {
   let stack = [current];
   while (stack.length > 0) {
     await pause(3);
-    let edges = current.unvisitedNeighbours();
+    let edges = current.unvisitedNeighbours(true);
     let next = edges[random(edges.length - 1)];
     while (next && (
       next.visitedNeighbours().length > 2 || // TODO: multiple complexity options
@@ -44,47 +45,70 @@ async function recursiveBacktrack (nodes) {
       current = stack.pop();
     }
   }
-  // TODO: very quirky indeed
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = 0; j < nodes[0].length; j++) {
-      const node = nodes[i][j];
-      if (node.type === NodeType.WALL) {
-        node.removeEdges();
-      }
+  Node.resetNodes(nodes);
+}
+
+async function depthFirstSearch (startNode, endNode) {
+  let from = {};
+  let branch = [startNode];
+  from[startNode.id] = startNode;
+  startNode.visited = true;
+  let current = startNode;
+  while (!from[endNode.id]) {
+    if (current === undefined) {
+      throw new Error("Path doesn't exist");
+    }
+    let edges = current.unvisitedNeighbours();
+    await pause(3);
+    if (edges.length === 0) {
+      current = branch.pop();
+    } else {
+      const next = edges[0];
+      next.mark(NodeType.VISITED);
+      current.visited = true;
+      from[next.id] = current;
+      branch.push(next);
+      current = branch[branch.length - 1];
     }
   }
+  await animatePath(from, endNode, startNode)
 }
 
 async function breathFirstSearch (startNode, endNode) {
   let from = {};
   let frontier = [startNode];
-  from[startNode.strId] = startNode;
-  while (!from[endNode.strId]) {
+  from[startNode.id] = startNode;
+  while (!from[endNode.id]) {
     let current = frontier.shift();
+    if (current === undefined) {
+      throw new Error("Path doesn't exist")
+    }
     // color the node if not start or end node
     if (!current.isStartOrEnd()) {
       current.mark(NodeType.VISITED);
     }
-    for (let next of current.edges) {
-      await pause(5);
-      if (!from[next.strId]) {
+    for (let next of current.neighbours()) {
+      await pause(3);
+      if (!from[next.id]) {
         if (!next.isStartOrEnd()) {
           next.mark(NodeType.VISITED);
         }
         frontier.push(next);
-        from[next.strId] = current;
+        from[next.id] = current;
       }
     }
   }
-  let fromNode = endNode;
+  await animatePath(from, endNode, startNode)
+}
+
+
+async function animatePath (pathMap, fromNode, startNode) {
   while (!fromNode.equals(startNode)) {
     await pause(5);
-    const toNode = from[fromNode.strId];
+    const toNode = pathMap[fromNode.id];
     if (!toNode.isStartOrEnd()) {
       toNode.mark(NodeType.PATH);
     }
     fromNode = toNode;
   }
 }
-
-

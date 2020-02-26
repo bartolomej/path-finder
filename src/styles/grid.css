@@ -39,6 +39,10 @@ td.visited {
     background: rgba(128, 95, 0, 0.7);
 }
 
+td.current {
+    background: green;
+}
+
 td.wall {
     animation-name: wallAnimation;
     animation-duration: 0.3s;

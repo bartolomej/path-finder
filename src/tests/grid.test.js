@@ -1,4 +1,4 @@
-import Grid from "../grid";
+import Grid from "../graph/grid";
 
 
 describe('Grid tests', function () {
@@ -13,7 +13,7 @@ describe('Grid tests', function () {
 
     for (let i = 0; i < dimensions[1]; i++) {
       for (let j = 0; j < dimensions[0]; j++) {
-        expect(grid.nodes[i][j].id).toEqual([i, j]);
+        expect(grid.nodes[i][j].position).toEqual([i, j]);
       }
     }
   });
@@ -25,7 +25,7 @@ describe('Grid tests', function () {
 
     for (let i = 0; i < dimensions[1]; i++) {
       for (let j = 0; j < dimensions[0]; j++) {
-        expect(grid.nodeExists(grid.nodes[i][j].id)).toBe(true);
+        expect(grid.nodeExists(grid.nodes[i][j].position)).toBe(true);
       }
     }
 
@@ -42,24 +42,13 @@ describe('Grid tests', function () {
     grid.initializeNodes();
 
     const edges0 = grid.neighbors(grid.nodes[0][0]);
-    expect(edges0.map(e => e.id)).toEqual([[0, 1], [1, 0]]);
+    expect(edges0.map(e => e.position)).toEqual([[0, 1], [1, 0]]);
 
     const edges1 = grid.neighbors(grid.nodes[1][1]);
-    expect(edges1.map(e => e.id)).toEqual([[0, 1], [1, 2], [2, 1], [1, 0]]);
+    expect(edges1.map(e => e.position)).toEqual([[0, 1], [1, 2], [2, 1], [1, 0]]);
 
     const edges2 = grid.neighbors(grid.nodes[2][3]);
-    expect(edges2.map(e => e.id)).toEqual([[1, 3], [2, 2]]);
-  });
-
-  it('should generate maze', function () {
-    const dimensions = [4, 3];
-    const grid = new Grid(dimensions);
-    grid.initializeNodes();
-    grid.initializeEdges();
-
-    grid.generateMaze();
-
-
+    expect(edges2.map(e => e.position)).toEqual([[1, 3], [2, 2]]);
   });
 
 });
