@@ -25,7 +25,7 @@ async function recursiveBacktrack (nodes) {
   current.visited = true;
   let stack = [current];
   while (stack.length > 0) {
-    await pause(3);
+    await pause(1);
     let edges = current.unvisitedNeighbours(true);
     let next = edges[random(edges.length - 1)];
     while (next && (

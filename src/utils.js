@@ -11,3 +11,15 @@ export function pause (ms) {
 export function cloneObjectOfClass (object) {
   return Object.assign(Object.create(Object.getPrototypeOf(object)), object)
 }
+
+export function showAlert (message) {
+  const container = document.createElement('div');
+  container.classList.add('alert');
+  const text = document.createElement('span');
+  text.innerText = message;
+  container.appendChild(text);
+  document.body.appendChild(container);
+  setTimeout(() => {
+    container.style.display = 'none';
+  }, 3500);
+}

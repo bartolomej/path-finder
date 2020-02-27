@@ -1,0 +1,157 @@
+button.naked {
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--dark-color);
+}
+
+button.naked:hover {
+    transform: scale(1.1);
+    border-color: transparent;
+}
+
+#intro-modal {
+    border-radius: 20px;
+    overflow-x: hidden;
+}
+
+div.modal-inner {
+    position: relative;
+    height: 80vh;
+    padding: 10px;
+    color: var(--dark-color)
+}
+
+div.modal-page {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex: 1;
+    opacity: 0;
+    transform: translateX(100%);
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.6s ease-in-out;
+}
+
+div.modal-page > div:first-child {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-around;
+}
+
+div.modal-page > div:last-child {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex: 0.15;
+    justify-content: space-around;
+}
+
+div.modal-inner p {
+    line-height: 1.4;
+}
+
+div.float-out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+div.float-in {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.modal {
+    max-width: 800px !important;
+}
+
+.modal a {
+    text-decoration: transparent;
+    transition: all 0.3s ease-in-out;
+    color: rgba(255, 58, 60, 0.69);
+}
+
+.modal a:hover {
+    text-decoration: underline rgba(255, 58, 60, 0.69);
+}
+
+.modal a.close-modal {
+    top: 13px !important;
+    right: 13px !important;
+    width: 50px !important;
+    height: 50px !important;
+    filter: invert(1);
+    transition: 0.5s all ease-in-out;
+}
+
+.modal a.close-modal:hover {
+    transform: scale(1.2);
+}
+
+#cool-links  {
+    height: 100%;
+}
+
+#cool-links a {
+    text-decoration: none;
+}
+
+.link-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.link-item {
+    padding: 10px;
+    width: 30%;
+    flex: 1 0 30%;
+    height: 20%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.link-item img {
+    margin: 10px;
+    transition: all 0.5s ease-in-out;
+    border-radius: 20px;
+    width: 100px;
+}
+
+.link-item span {
+    color: var(--dark-color);
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.link-item p {
+    font-size: 12px;
+    color: grey;
+}
+
+.link-item:hover {
+    color: var(--vibrant-color);
+}
+
+.link-item:hover img {
+    transform: scale(1.1);
+}
+
+.link-item:hover span {
+    color: var(--vibrant-color);
+}
+
+#more-cool-stuff:hover {
+    color: #ff5e27;
+}

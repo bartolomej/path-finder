@@ -37,7 +37,7 @@
 }
 
 .edd-root-focused .edd-head {
-    border-color: #3139ff;
+    border-color: var(--vibrant-color);
 }
 
 .edd-root-invalid .edd-head {
@@ -81,7 +81,7 @@
 
 .edd-root-open .edd-arrow,
 .edd-root:not(.edd-root-disabled):not(.edd-root-open) .edd-head:hover .edd-arrow {
-    color: #3139ff;
+    color: var(--vibrant-color);
 }
 
 .edd-value,
@@ -154,6 +154,7 @@
 }
 
 .edd-option {
+    font-size: 14px !important;
     padding: 12px 10px;
     border-bottom: 1px solid #eee;
     transition: background-color 250ms, color 250ms, border-color 250ms;
@@ -165,12 +166,11 @@
 
 .edd-option-selected {
     font-weight: 400;
-    color: #3139ff;
+    color: var(--vibrant-color)
 }
 
 .edd-option-focused:not(.edd-option-disabled) {
-    background: #3139ff;
-    border-bottom-color: #3139ff;
+    background: var(--vibrant-color);
     color: white;
 }
 
