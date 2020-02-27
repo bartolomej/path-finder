@@ -74,6 +74,8 @@ export default class Node {
 
   reset () {
     this.visited = false;
+    this.type = NodeType.UNVISITED;
+    this.updateDom();
   }
 
   equals (node) {
@@ -97,10 +99,10 @@ export default class Node {
     return str.split('-').map(parseFloat);
   }
 
-  static resetNodes (nodes) {
+  static softReset (nodes) {
     for (let i = 0; i < nodes.length; i++) {
       for (let j = 0; j < nodes[i].length; j++) {
-        nodes[i][j].reset();
+        nodes[i][j].visited = false;
       }
     }
   }

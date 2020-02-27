@@ -1,4 +1,4 @@
-import { pause, random } from "../utils/utils";
+import { pause, random } from "../utils";
 import Node, { NodeType } from "./node";
 
 
@@ -45,7 +45,7 @@ async function recursiveBacktrack (nodes) {
       current = stack.pop();
     }
   }
-  Node.resetNodes(nodes);
+  Node.softReset(nodes);
 }
 
 async function depthFirstSearch (startNode, endNode) {
@@ -64,11 +64,13 @@ async function depthFirstSearch (startNode, endNode) {
       current = branch.pop();
     } else {
       const next = edges[0];
-      next.mark(NodeType.VISITED);
       current.visited = true;
       from[next.id] = current;
       branch.push(next);
       current = branch[branch.length - 1];
+      if (!current.equals(endNode)) {
+        current.mark(NodeType.VISITED);
+      }
     }
   }
   await animatePath(from, endNode, startNode)

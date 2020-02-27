@@ -5,7 +5,7 @@ table {
 }
 
 td {
-    border: 1px solid #98a4e6;
+    border: 1px solid rgba(133, 145, 203, 0.56);
     transition: 0.3s all ease-out;
 }
 
@@ -14,7 +14,7 @@ td.dragging {
 }
 
 td.start {
-    background: dodgerblue;
+    background: var(--start-node);
 }
 
 td.start:hover {
@@ -23,7 +23,7 @@ td.start:hover {
 }
 
 td.end {
-    background: red;
+    background: var(--end-node);
 }
 
 td.end:hover {
@@ -36,11 +36,7 @@ td.unvisited {
 }
 
 td.visited {
-    background: rgba(128, 95, 0, 0.7);
-}
-
-td.current {
-    background: green;
+    background: rgba(152, 202, 255, 0.75);
 }
 
 td.wall {
@@ -55,22 +51,22 @@ td.wall {
 }
 
 td.path {
-    background: gold;
+    background: rgb(249, 218, 0);
 }
 
 @keyframes wallAnimation {
     0% {
         transform: scale(.3);
-        background-color: rgb(12, 53, 71);
+        background-color: var(--dark-color);
     }
 
     50% {
         transform: scale(1.2);
-        background-color: rgb(12, 53, 71);
+        background-color: var(--dark-color);
     }
 
     100% {
         transform: scale(1.0);
-        background-color: rgb(12, 53, 71);
+        background-color: var(--dark-color);
     }
 }

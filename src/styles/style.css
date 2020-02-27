@@ -6,6 +6,14 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: 'Montserrat', sans-serif;
+    --dark-color: rgba(12, 53, 71, 0.8);
+    --start-node: #3139ff;
+    --end-node: #ff3a3c;
+}
+
+#container {
+    height: 100vh;
+    width: 100vw;
 }
 
 #controls-container {
@@ -13,16 +21,88 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: rgb(12, 53, 71);;
+    background: var(--dark-color);
 }
 
-#controls-container label {
+#controls-container > div {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
+#controls-container > div > span {
+    color: white;
+    font-size: 20px;
+    padding: 6px 15px;
+}
+
+@media (max-width: 900px) {
+   #controls-container > div {
+       flex-direction: column;
+   }
+}
+
 #grid-container {
     height: 90vh;
+}
+
+#intro-modal {
+    border-radius: 20px;
+}
+
+div.modal-inner {
+    padding: 20px;
+    color: var(--dark-color)
+}
+
+div.modal-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.modal-inner img {
+    width: 80%;
+    margin: 20px 0;
+}
+
+div.modal-inner p {
+    line-height: 1.4;
+}
+
+.button-like {
+    outline: none;
+    text-decoration: none;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    background: var(--dark-color);
+    border-radius: 10px;
+    transition: all 0.5s ease-out;
+}
+
+.button-like:hover {
+    color: var(--dark-color);
+    background: white;
+    border: 2px solid var(--dark-color);
+}
+
+.button-round {
+    margin: 0 10px;
+    border-radius: 20px;
+    padding: 9px 30px;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+}
+
+.button-round:hover {
+    transform: scale(1.1);
+    color: black;
+    background: white;
+    border: 2px solid transparent;
 }

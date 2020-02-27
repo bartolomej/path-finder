@@ -1,5 +1,5 @@
 import Node from "./node";
-import { cloneObjectOfClass } from "../utils/utils";
+import { cloneObjectOfClass } from "../utils";
 
 
 export default class GridInteraction {

@@ -8,7 +8,6 @@ export default class Grid {
     this.parent = parent;
     this.dimensions = dimensions;
     this.nodes = [];
-    this.edges = [];
     this.domElement = null;
     this.startNode = null;
     this.endNode = null;
@@ -20,6 +19,7 @@ export default class Grid {
       throw new Error('Parent not set');
     }
     this.initializeNodes();
+    this.initStartEndNodes();
     this.initializeEdges();
     this.generateDom(this.parent);
     this.initInteraction();
@@ -31,7 +31,9 @@ export default class Grid {
       const dragType = drag.type;
       if (dragType === NodeType.START || dragType === NodeType.END) {
         over.mark(dragType);
-        prev.mark(NodeType.UNVISITED)
+        prev.mark(NodeType.UNVISITED);
+        if (dragType === NodeType.START) this.startNode = over;
+        if (dragType === NodeType.END) this.endNode = over;
       }
       if (!over.isStartOrEnd() && !drag.isStartOrEnd()) {
         over.invert();
@@ -44,6 +46,27 @@ export default class Grid {
     }
   }
 
+  resetPath () {
+    for (let i = 0; i < this.nodes.length; i++) {
+      for (let j = 0; j < this.nodes[0].length; j++) {
+        const node = this.nodes[i][j];
+        if (node.type !== NodeType.WALL && !node.isStartOrEnd()) {
+          node.reset();
+        }
+      }
+    }
+  }
+
+  reset () {
+    for (let i = 0; i < this.nodes.length; i++) {
+      for (let j = 0; j < this.nodes[0].length; j++) {
+        const node = this.nodes[i][j];
+        node.reset();
+      }
+    }
+    this.initStartEndNodes();
+  }
+
   initializeNodes () {
     for (let i = 0; i < this.dimensions[1]; i++) {
       const row = [];
@@ -52,6 +75,9 @@ export default class Grid {
       }
       this.nodes.push(row)
     }
+  }
+
+  initStartEndNodes () {
     const y = Math.round(this.nodes.length / 2);
     const x0 = Math.round(this.nodes[0].length / 3);
     const x1 = this.nodes[0].length - x0;
