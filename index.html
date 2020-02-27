@@ -5,27 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Personal website with projects, blogs and ideas.">
+    <meta name="description" content="Path finding algorithms.">
     <meta name="author" content="Bartolomej Kozorog">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
-    <meta property="og:site_name" content=""/> <!-- website name -->
+    <meta property="og:site_name" content="Path finding algorithms."/> <!-- website name -->
     <meta property="og:site" content=""/> <!-- website link -->
-    <meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
-    <meta property="og:description" content=""/> <!-- description shown in the actual shared post -->
-    <meta property="og:image" content=""/> <!-- image link, make sure it's jpg -->
+    <meta property="og:title" content="Path finding algorithms."/> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="Interactive visualization of path finding algorithms."/> <!-- description shown in the actual shared post -->
+    <meta property="og:image" content="tutorial2.gif"/> <!-- image link, make sure it's jpg -->
     <meta property="og:url" content=""/> <!-- where do you want your post to link to -->
     <meta property="og:type" content="article"/>
 
-    <title>Path finding</title>
+    <title>Path finding algorithms</title>
 
-    <link rel="icon" href="assets/images/drawing.svg">
     <link rel="stylesheet" href="bundle.js.css">
     <link rel="icon" href="icon.png">
+
+    <script src="easydropdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 <body>
 
-<div id="controls-container">
+<div id="container">
+    <div id="controls-container">
+        <div>
+            <span>Algorithms</span>
+            <select id="algorithms-input">
+                <option value="">None</option>
+                <option value="dfs">Depth First Search</option>
+                <option value="bfs">Breath First Search</option>
+            </select>
+        </div>
+        <div>
+            <span>Wall Patterns</span>
+            <select id="patterns-input">
+                <option value="">None</option>
+                <option value="bm">Backtrack Maze</option>
+            </select>
+        </div>
+        <div>
+            <button id="reset" class="button-like button-round">Reset</button>
+            <button id="about" class="button-like button-round">About</button>
+        </div>
+    </div>
+</div>
+
+<div id="intro-modal" style="display: none">
+    <div class="modal-inner">
+        <div class="modal-page">
+            <h1>Graph Theory</h1>
+            <img alt="graph" src="graph.png" />
+            <p>
+                This is a study of abstract objects called <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graphs</a>
+                in the field of <a href="https://en.wikipedia.org/wiki/Discrete_mathematics">discrete mathematics</a>, which is closely related
+                to combinatorics, set theory, logic,.. and applied in many other fields like Computer Science, Sociology,...
+            </p>
+            <button class="button-like has-next">Next</button>
+        </div>
+        <div class="modal-page">
+            <h1>Path finding</h1>
+            <img style="border-radius: 20px" alt="graph" src="route.png" />
+            <p>
+                A common in Graph Theory is finding a path from some "node" A to some other node "B", if such path exists.
+            </p>
+            <button class="button-like has-next">Next</button>
+        </div>
+        <div class="modal-page">
+            <h1>Quick tutorial</h1>
+            <p>
+                <span style="color: var(--start-node)">Blue</span> node is a starting point and
+                <span style="color: var(--end-node)">red</span> node is the destination.
+                The algorithm has to find a path that avoids the <span style="color: var(--dark-color)">walls</span>.
+            </p>
+            <ul>
+                <li>Breath First Search</li>
+                <li>Depth First Search</li>
+                <li>Dijkstra's algorithm (COMING SOON)</li>
+                <li>A* algorithm (COMING SOON)</li>
+            </ul>
+            <img style="width: 110%; padding: 20px 0" alt="tutorial" src="tutorial1.gif" />
+            <button id="close-modal" class="button-like">Okay</button>
+        </div>
+    </div>
 </div>
 
 <script src="./bundle.js"></script>

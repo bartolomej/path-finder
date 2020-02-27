@@ -5,6 +5,14 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: 'Montserrat', sans-serif;
+    --dark-color: rgba(12, 53, 71, 0.8);
+    --start-node: #3139ff;
+    --end-node: #ff3a3c;
+}
+
+#container {
+    height: 100vh;
+    width: 100vw;
 }
 
 #controls-container {
@@ -12,18 +20,90 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: rgb(12, 53, 71);;
+    background: var(--dark-color);
 }
 
-#controls-container label {
+#controls-container > div {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
+#controls-container > div > span {
+    color: white;
+    font-size: 20px;
+    padding: 6px 15px;
+}
+
+@media (max-width: 900px) {
+   #controls-container > div {
+       flex-direction: column;
+   }
+}
+
 #grid-container {
     height: 90vh;
+}
+
+#intro-modal {
+    border-radius: 20px;
+}
+
+div.modal-inner {
+    padding: 20px;
+    color: var(--dark-color)
+}
+
+div.modal-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.modal-inner img {
+    width: 80%;
+    margin: 20px 0;
+}
+
+div.modal-inner p {
+    line-height: 1.4;
+}
+
+.button-like {
+    outline: none;
+    text-decoration: none;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    background: var(--dark-color);
+    border-radius: 10px;
+    transition: all 0.5s ease-out;
+}
+
+.button-like:hover {
+    color: var(--dark-color);
+    background: white;
+    border: 2px solid var(--dark-color);
+}
+
+.button-round {
+    margin: 0 10px;
+    border-radius: 20px;
+    padding: 9px 30px;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+}
+
+.button-round:hover {
+    transform: scale(1.1);
+    color: black;
+    background: white;
+    border: 2px solid transparent;
 }
 
 table {
@@ -33,7 +113,7 @@ table {
 }
 
 td {
-    border: 1px solid #98a4e6;
+    border: 1px solid rgba(133, 145, 203, 0.56);
     transition: 0.3s all ease-out;
 }
 
@@ -42,7 +122,7 @@ td.dragging {
 }
 
 td.start {
-    background: dodgerblue;
+    background: var(--start-node);
 }
 
 td.start:hover {
@@ -51,7 +131,7 @@ td.start:hover {
 }
 
 td.end {
-    background: red;
+    background: var(--end-node);
 }
 
 td.end:hover {
@@ -64,7 +144,7 @@ td.unvisited {
 }
 
 td.visited {
-    background: rgba(128, 95, 0, 0.7);
+    background: rgba(152, 202, 255, 0.75);
 }
 
 td.wall {
@@ -79,23 +159,23 @@ td.wall {
 }
 
 td.path {
-    background: gold;
+    background: rgb(249, 218, 0);
 }
 
 @keyframes wallAnimation {
     0% {
         transform: scale(.3);
-        background-color: rgb(12, 53, 71);
+        background-color: var(--dark-color);
     }
 
     50% {
         transform: scale(1.2);
-        background-color: rgb(12, 53, 71);
+        background-color: var(--dark-color);
     }
 
     100% {
         transform: scale(1.0);
-        background-color: rgb(12, 53, 71);
+        background-color: var(--dark-color);
     }
 }
 
@@ -119,6 +199,188 @@ option {
     -moz-appearance: none;
     appearance: none;
     padding: 5px;
+}
+
+.edd-root,
+.edd-root *,
+.edd-root *::before,
+.edd-root *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.edd-root {
+    display: inline-block;
+    position: relative;
+    width: 180px;
+    user-select: none;
+    font-family: 'Helvetica Neue', arial, helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+}
+
+.edd-root-disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.edd-head {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #eee;
+    transition: box-shadow 200ms;
+    background: white;
+}
+
+.edd-head,
+.edd-body {
+    border-radius: 20px;
+}
+
+.edd-root-focused .edd-head {
+    border-color: #3139ff;
+}
+
+.edd-root-invalid .edd-head {
+    border-color: #ff6969;
+}
+
+.edd-value {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 9px 35px 9px 10px;
+}
+
+.edd-arrow {
+    position: absolute;
+    width: 18px;
+    height: 10px;
+    top: calc(50% - 5px);
+    right: calc(25px - 9px);
+    transition: transform 150ms;
+    pointer-events: none;
+    color: #888;
+}
+
+.edd-arrow::before {
+    content: '';
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    top: -5px;
+    right: 0;
+    transform: rotate(45deg);
+    transform-origin: 50% 25%;
+}
+
+.edd-root-open .edd-arrow {
+    transform: rotate(180deg);
+}
+
+.edd-root-open .edd-arrow,
+.edd-root:not(.edd-root-disabled):not(.edd-root-open) .edd-head:hover .edd-arrow {
+    color: #3139ff;
+}
+
+.edd-value,
+.edd-option,
+.edd-group-label {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.edd-root:not(.edd-root-disabled) .edd-value,
+.edd-option {
+    cursor: pointer;
+}
+
+.edd-select {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    left: -100%;
+    top: 0;
+}
+
+.edd-root-native .edd-select {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.edd-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    overflow: hidden;
+    margin: 8px 0;
+    z-index: 999;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
+    background: white;
+}
+
+.edd-root-open .edd-body {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+    transition: opacity 200ms, transform 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.edd-root-open-above .edd-body {
+    bottom: 100%;
+}
+
+.edd-root-open-below .edd-body {
+    top: 100%;
+}
+
+.edd-items-list {
+    overflow: auto;
+    max-height: 0;
+    transition: max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -webkit-overflow-scrolling: touch;
+}
+
+.edd-group-label {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 12px 10px 4px;
+}
+
+.edd-option {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 250ms, color 250ms, border-color 250ms;
+}
+
+.edd-group-has-label .edd-option {
+    padding-left: 14px;
+}
+
+.edd-option-selected {
+    font-weight: 400;
+    color: #3139ff;
+}
+
+.edd-option-focused:not(.edd-option-disabled) {
+    background: #3139ff;
+    border-bottom-color: #3139ff;
+    color: white;
+}
+
+.edd-option-disabled,
+.edd-group-disabled .edd-option {
+    cursor: default;
+    color: #ccc;
 }
 
 
