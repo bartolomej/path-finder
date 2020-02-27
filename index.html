@@ -47,48 +47,70 @@
             </select>
         </div>
         <div>
-            <button id="reset" class="button-like button-round">Reset</button>
-            <button id="about" class="button-like button-round">About</button>
+            <button id="reset" class="header">Reset</button>
+            <button id="about" class="header">About</button>
+            <a id="repo-link" target="_blank" href="https://github.com/bartolomej/path-finding">
+                <img alt="github" src="github.png" />
+            </a>
         </div>
     </div>
 </div>
 
-<div id="intro-modal" style="display: none">
+<div id="intro-modal">
     <div class="modal-inner">
         <div class="modal-page">
-            <h1>Graph Theory</h1>
-            <img alt="graph" src="graph.png" />
-            <p>
-                This is a study of abstract objects called <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graphs</a>
-                in the field of <a href="https://en.wikipedia.org/wiki/Discrete_mathematics">discrete mathematics</a>, which is closely related
-                to combinatorics, set theory, logic,.. and applied in many other fields like Computer Science, Sociology,...
-            </p>
-            <button class="button-like has-next">Next</button>
+            <div>
+                <h1>About graph theory</h1>
+                <img alt="graph" style="width: 30%" src="graph.png" />
+                <div>
+                    <p style="padding: 5px 0">
+                        Graph Theory is a branch of mathematics that studies abstract objects called <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graphs</a>.
+                    </p>
+                    <p style="padding: 5px 0">
+                        A graph is defined as a set of <b>nodes</b> (also called vertices) and a set of <b>connections</b> (or edges) to which we could also assign a <b>weight</b> (which normally represents the <b>cost</b> of choosing that connection).
+                    </p>
+                    <p style="padding: 5px 0">
+                        It turns out that this relatively simple model gives us a very useful tool for studying and describing many many real world phenomena,
+                        such as <a href="https://en.wikipedia.org/wiki/Social_network_analysis">social networks</a>, <a href="https://en.wikipedia.org/wiki/Computer_architecture">system architectures</a>, computer networks,...
+                    </p>
+                    <p style="padding: 5px 0">
+                        Many times we are faced with a problem of finding a <b>path</b> that leads from some starting node <b>A</b> to some other node <b>B</b> (and if such path even exists).
+                        One very common application of this is <a href="https://anvaka.github.io/ngraph.path.demo/#?graph=amsterdam-roads&fromId=6858&toId=31766">road navigation</a> or network packet routing.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <button class="has-next">Next</button>
+            </div>
         </div>
         <div class="modal-page">
-            <h1>Path finding</h1>
-            <img style="border-radius: 20px" alt="graph" src="route.png" />
-            <p>
-                A common in Graph Theory is finding a path from some "node" A to some other node "B", if such path exists.
-            </p>
-            <button class="button-like has-next">Next</button>
+            <div>
+                <h1>Quick tutorial</h1>
+                <div>
+                    <p>
+                        This app visualizes some <b>path finding</b> algorithms on a <a href="https://www.redblobgames.com/pathfinding/grids/graphs.html">grid system</a> (which is represented as a graph).
+                        Every block has 4 connections to 4 blocks that surround it (called <b>neighbour nodes</b>).
+                    </p>
+                    <p style="padding: 5px 0">
+                        <span style="color: var(--start-node)">Blue</span> block is a starting node, while the
+                        <span style="color: var(--end-node)">red</span> one is the destination.
+                        Add walls by dragging with your mouse on the empty grid spots.
+                    </p>
+                    <p style="padding: 5px 0">
+                        Choose algorithms to visualize under <b>algorithms</b> options.
+                        You can also request the program to draw some <b>wall patterns</b> for you (for example a maze).
+                    </p>
+
+                </div>
+                <img style="width: 80%; padding: 20px 0" alt="tutorial" src="tutorial1.gif" />
+            </div>
+            <div>
+                <button class="naked has-prev">Back</button>
+                <button id="more-cool-stuff" class="naked has-next">🔥 More cool stuff 🔥</button>
+                <button id="close-modal">Okay</button>
+            </div>
         </div>
-        <div class="modal-page">
-            <h1>Quick tutorial</h1>
-            <p>
-                <span style="color: var(--start-node)">Blue</span> node is a starting point and
-                <span style="color: var(--end-node)">red</span> node is the destination.
-                The algorithm has to find a path that avoids the <span style="color: var(--dark-color)">walls</span>.
-            </p>
-            <ul>
-                <li>Breath First Search</li>
-                <li>Depth First Search</li>
-                <li>Dijkstra's algorithm (COMING SOON)</li>
-                <li>A* algorithm (COMING SOON)</li>
-            </ul>
-            <img style="width: 110%; padding: 20px 0" alt="tutorial" src="tutorial1.gif" />
-            <button id="close-modal" class="button-like">Okay</button>
-        </div>
+        <div class="modal-page" id="cool-links"></div>
     </div>
 </div>
 

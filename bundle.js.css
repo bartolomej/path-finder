@@ -1,11 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap);
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100vw;
     font-family: 'Montserrat', sans-serif;
-    --dark-color: rgba(12, 53, 71, 0.8);
+    --dark-color: #454f6d;
+    --vibrant-color: #F73859;
+    --light-color: rgba(132, 172, 206, 0.64);
     --start-node: #3139ff;
     --end-node: #ff3a3c;
 }
@@ -35,42 +42,23 @@ body {
     padding: 6px 15px;
 }
 
-@media (max-width: 900px) {
-   #controls-container > div {
-       flex-direction: column;
-   }
-}
-
 #grid-container {
     height: 90vh;
 }
 
-#intro-modal {
-    border-radius: 20px;
+@media (max-width: 900px) {
+    #controls-container > div {
+        flex-direction: column;
+    }
+    #controls-container {
+        height: 15vh;
+    }
+    #grid-container {
+        height: 85vh;
+    }
 }
 
-div.modal-inner {
-    padding: 20px;
-    color: var(--dark-color)
-}
-
-div.modal-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-div.modal-inner img {
-    width: 80%;
-    margin: 20px 0;
-}
-
-div.modal-inner p {
-    line-height: 1.4;
-}
-
-.button-like {
+button {
     outline: none;
     text-decoration: none;
     border: 2px solid transparent;
@@ -84,26 +72,74 @@ div.modal-inner p {
     transition: all 0.5s ease-out;
 }
 
-.button-like:hover {
+button:hover {
     color: var(--dark-color);
     background: white;
     border: 2px solid var(--dark-color);
 }
 
-.button-round {
-    margin: 0 10px;
-    border-radius: 20px;
-    padding: 9px 30px;
+button.header {
+    margin: 5px 10px;
     color: white;
+    border-radius: 20px;
+    font-weight: bold;
     background: transparent;
-    border: 2px solid white;
 }
 
-.button-round:hover {
+button.header:hover {
     transform: scale(1.1);
-    color: black;
+    color: var(--vibrant-color);
+}
+
+#repo-link {
+    margin-left: 30px;
+    transition: all 0.5s ease-in-out;
+}
+
+#repo-link img {
+    height: 40px;
+    width: 40px;
+}
+
+#repo-link:hover {
+    transform: scale(1.1);
+}
+
+.alert {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    margin: 0 auto;
+    width: 200px;
+    color: var(--vibrant-color);
     background: white;
-    border: 2px solid transparent;
+    border-radius: 25px;
+    border: 3px solid var(--vibrant-color);
+    animation: ease-in-out 3s floatInAlert forwards;
+}
+
+@keyframes floatInAlert {
+    0% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
 }
 
 table {
@@ -144,7 +180,7 @@ td.unvisited {
 }
 
 td.visited {
-    background: rgba(152, 202, 255, 0.75);
+    background: rgba(152, 202, 255, 0.6);
 }
 
 td.wall {
@@ -240,7 +276,7 @@ option {
 }
 
 .edd-root-focused .edd-head {
-    border-color: #3139ff;
+    border-color: var(--vibrant-color);
 }
 
 .edd-root-invalid .edd-head {
@@ -284,7 +320,7 @@ option {
 
 .edd-root-open .edd-arrow,
 .edd-root:not(.edd-root-disabled):not(.edd-root-open) .edd-head:hover .edd-arrow {
-    color: #3139ff;
+    color: var(--vibrant-color);
 }
 
 .edd-value,
@@ -357,6 +393,7 @@ option {
 }
 
 .edd-option {
+    font-size: 14px !important;
     padding: 12px 10px;
     border-bottom: 1px solid #eee;
     transition: background-color 250ms, color 250ms, border-color 250ms;
@@ -368,12 +405,11 @@ option {
 
 .edd-option-selected {
     font-weight: 400;
-    color: #3139ff;
+    color: var(--vibrant-color)
 }
 
 .edd-option-focused:not(.edd-option-disabled) {
-    background: #3139ff;
-    border-bottom-color: #3139ff;
+    background: var(--vibrant-color);
     color: white;
 }
 
@@ -381,6 +417,164 @@ option {
 .edd-group-disabled .edd-option {
     cursor: default;
     color: #ccc;
+}
+
+button.naked {
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--dark-color);
+}
+
+button.naked:hover {
+    transform: scale(1.1);
+    border-color: transparent;
+}
+
+#intro-modal {
+    border-radius: 20px;
+    overflow-x: hidden;
+}
+
+div.modal-inner {
+    position: relative;
+    height: 80vh;
+    padding: 10px;
+    color: var(--dark-color)
+}
+
+div.modal-page {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex: 1;
+    opacity: 0;
+    transform: translateX(100%);
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.6s ease-in-out;
+}
+
+div.modal-page > div:first-child {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-around;
+}
+
+div.modal-page > div:last-child {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex: 0.15;
+    justify-content: space-around;
+}
+
+div.modal-inner p {
+    line-height: 1.4;
+}
+
+div.float-out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+div.float-in {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.modal {
+    max-width: 800px !important;
+}
+
+.modal a {
+    text-decoration: transparent;
+    transition: all 0.3s ease-in-out;
+    color: rgba(255, 58, 60, 0.69);
+}
+
+.modal a:hover {
+    text-decoration: underline rgba(255, 58, 60, 0.69);
+}
+
+.modal a.close-modal {
+    top: 13px !important;
+    right: 13px !important;
+    width: 50px !important;
+    height: 50px !important;
+    filter: invert(1);
+    transition: 0.5s all ease-in-out;
+}
+
+.modal a.close-modal:hover {
+    transform: scale(1.2);
+}
+
+#cool-links  {
+    height: 100%;
+}
+
+#cool-links a {
+    text-decoration: none;
+}
+
+.link-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.link-item {
+    padding: 10px;
+    width: 30%;
+    flex: 1 0 30%;
+    height: 20%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.link-item img {
+    margin: 10px;
+    transition: all 0.5s ease-in-out;
+    border-radius: 20px;
+    width: 100px;
+}
+
+.link-item span {
+    color: var(--dark-color);
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.link-item p {
+    font-size: 12px;
+    color: grey;
+}
+
+.link-item:hover {
+    color: var(--vibrant-color);
+}
+
+.link-item:hover img {
+    transform: scale(1.1);
+}
+
+.link-item:hover span {
+    color: var(--vibrant-color);
+}
+
+#more-cool-stuff:hover {
+    color: #ff5e27;
 }
 
 
