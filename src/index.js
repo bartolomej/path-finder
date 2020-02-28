@@ -10,8 +10,11 @@ import links from "./links";
 
 
 window.addEventListener('load', init);
+const dfs = search.depthFirstSearch;
+const bfs = search.breathFirstSearch;
 let algorithmsInput;
 let patternsInput;
+let isRunning;
 
 async function init () {
   renderControls();
@@ -34,7 +37,6 @@ function renderLinks () {
   const btnContainer = document.createElement('div');
   btnContainer.innerHTML = `
     <button class="naked has-prev">Back</button>
-    <button class="has-next">Next</button>
   `;
   container.appendChild(btnContainer);
 
@@ -64,32 +66,44 @@ function renderControls () {
   algorithmsInput = easydropdown('#algorithms-input', {
     callbacks: {
       onSelect: async value => {
+        if (isRunning) {
+          showAlert("Animation already running");
+          return;
+        }
+        isRunning = true;
         grid.resetPath();
         try {
-          if (value === 'bfs') {
-            await search.breathFirstSearch(grid.startNode, grid.endNode);
-          }
-          if (value === 'dfs') {
-            await search.depthFirstSearch(grid.startNode, grid.endNode);
-          }
+          if (value === 'bfs') await bfs(grid.startNode, grid.endNode);
+          if (value === 'dfs') await dfs(grid.startNode, grid.endNode);
         } catch (e) {
-          showAlert(e.message);
+          showAlert(e.message)
         }
+        isRunning = false;
       }
     }
   });
   patternsInput = easydropdown('#patterns-input', {
     callbacks: {
       onSelect: async value => {
+        if (isRunning) {
+          showAlert("Animation already running");
+          return;
+        }
         grid.resetPath();
+        isRunning = true;
         if (value === 'bm') {
           await pattern.recursiveBacktrack(grid.nodes);
         }
+        isRunning = false;
       }
     }
   });
   easydropdown.all();
   document.getElementById('reset').addEventListener('click', () => {
+    if (isRunning) {
+      showAlert("Cant reset grid during running animation");
+      return;
+    }
     window.grid.reset();
     algorithmsInput.value = 'none';
     patternsInput.value = 'none';
