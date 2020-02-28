@@ -36,6 +36,17 @@ body {
     align-items: center;
 }
 
+#controls-container > div > div {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-right: 30px;
+}
+
+#controls-container > div > div > span {
+    margin-right: 10px;
+}
+
 #controls-container > div > span {
     color: white;
     font-size: 20px;
@@ -444,7 +455,7 @@ div.modal-inner {
 
 div.modal-page {
     height: 100%;
-    width: 100%;
+    padding: 5px 10px;
     position: absolute;
     top: 0;
     display: flex;
@@ -489,7 +500,7 @@ div.float-in {
 }
 
 .modal {
-    max-width: 800px !important;
+    max-width: 750px !important;
 }
 
 .modal a {
@@ -547,7 +558,7 @@ div.float-in {
     margin: 10px;
     transition: all 0.5s ease-in-out;
     border-radius: 20px;
-    width: 100px;
+    width: 80px;
 }
 
 .link-item span {
