@@ -43,6 +43,11 @@ body {
     margin-right: 30px;
 }
 
+#controls-container button {
+    margin: 0 20px;
+    padding: 0;
+}
+
 #controls-container > div > div > span {
     margin-right: 10px;
 }
@@ -58,8 +63,12 @@ body {
 }
 
 @media (max-width: 900px) {
-    #controls-container > div {
+    #controls-container > div > div {
         flex-direction: column;
+        margin: 0 0 0 10px;
+    }
+    #controls-container > div > div > span {
+        padding: 10px;
     }
     #controls-container {
         height: 15vh;
@@ -122,11 +131,12 @@ button.header:hover {
     right: 0;
     top: 30%;
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
     padding: 20px 0;
     margin: 0 auto;
-    width: 200px;
+    width: 400px;
     color: var(--vibrant-color);
     background: white;
     border-radius: 25px;
@@ -537,14 +547,11 @@ div.float-in {
 .link-list {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
 }
 
 .link-item {
-    padding: 10px;
-    width: 30%;
     flex: 1 0 30%;
-    height: 20%;
     margin: 10px;
     display: flex;
     flex-direction: column;
