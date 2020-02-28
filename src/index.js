@@ -10,6 +10,8 @@ import links from "./links";
 
 
 window.addEventListener('load', init);
+let algorithmsInput;
+let patternsInput;
 
 async function init () {
   renderControls();
@@ -59,7 +61,7 @@ function renderLinks () {
 }
 
 function renderControls () {
-  easydropdown('#algorithms-input', {
+  algorithmsInput = easydropdown('#algorithms-input', {
     callbacks: {
       onSelect: async value => {
         grid.resetPath();
@@ -76,7 +78,7 @@ function renderControls () {
       }
     }
   });
-  easydropdown('#patterns-input', {
+  patternsInput = easydropdown('#patterns-input', {
     callbacks: {
       onSelect: async value => {
         grid.resetPath();
@@ -89,6 +91,8 @@ function renderControls () {
   easydropdown.all();
   document.getElementById('reset').addEventListener('click', () => {
     window.grid.reset();
+    algorithmsInput.value = 'none';
+    patternsInput.value = 'none';
   });
   document.getElementById('about').addEventListener('click', () => {
     renderModal();

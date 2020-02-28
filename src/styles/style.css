@@ -37,6 +37,17 @@ body {
     align-items: center;
 }
 
+#controls-container > div > div {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-right: 30px;
+}
+
+#controls-container > div > div > span {
+    margin-right: 10px;
+}
+
 #controls-container > div > span {
     color: white;
     font-size: 20px;

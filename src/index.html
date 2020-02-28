@@ -20,7 +20,7 @@
     <title>Path finding algorithms</title>
 
     <link rel="stylesheet" href="bundle.js.css">
-    <link rel="icon" href="icon.png">
+    <link rel="icon" href="graph.png">
 
     <script src="easydropdown.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -32,19 +32,22 @@
 <div id="container">
     <div id="controls-container">
         <div>
-            <span>Algorithms</span>
-            <select id="algorithms-input">
-                <option value="">None</option>
-                <option value="dfs">Depth First Search</option>
-                <option value="bfs">Breath First Search</option>
-            </select>
-        </div>
-        <div>
-            <span>Wall Patterns</span>
-            <select id="patterns-input">
-                <option value="">None</option>
-                <option value="bm">Backtrack Maze</option>
-            </select>
+            <div>
+                <span>Algorithms</span>
+                <select id="algorithms-input">
+                    <option value="none">None</option>
+                    <option value="dfs">Depth First Search</option>
+                    <option value="bfs">Breath First Search</option>
+                    <option value="djk">Dijkstras</option>
+                </select>
+            </div>
+            <div>
+                <span>Wall Patterns</span>
+                <select id="patterns-input">
+                    <option value="none">None</option>
+                    <option value="bm">Backtrack Maze</option>
+                </select>
+            </div>
         </div>
         <div>
             <button id="reset" class="header">Reset</button>
