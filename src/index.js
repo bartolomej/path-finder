@@ -92,7 +92,7 @@ function renderControls () {
         grid.resetPath();
         isRunning = true;
         if (value === 'bm') {
-          await pattern.recursiveBacktrack(grid.nodes);
+          await pattern.recursiveBacktrack(grid.nodes, grid.startNode);
         }
         isRunning = false;
       }
@@ -117,6 +117,7 @@ function renderGrid () {
   const gridContainer = document.createElement('div');
   const controlsContainer = document.getElementById('controls-container');
   gridContainer.id = 'grid-container';
+  gridContainer.setAttribute('oncontextmenu', 'return false;');
   document.getElementById('container').append(gridContainer);
   const ratio = window.innerWidth / (window.innerHeight - controlsContainer.clientHeight);
   const x = 50;

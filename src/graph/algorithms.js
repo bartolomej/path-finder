@@ -11,7 +11,7 @@ export const search = {
   depthFirstSearch
 };
 
-async function recursiveBacktrack (nodes) {
+async function recursiveBacktrack (nodes, start) {
   for (let i = 0; i < nodes.length; i++) {
     for (let j = 0; j < nodes[0].length; j++) {
       if (i % 5 === 0) await pause(1);
@@ -21,7 +21,7 @@ async function recursiveBacktrack (nodes) {
       }
     }
   }
-  let current = nodes[0][0];
+  let current = nodes[start.position[0]][start.position[1]];
   current.visited = true;
   let stack = [current];
   while (stack.length > 0) {
@@ -29,7 +29,7 @@ async function recursiveBacktrack (nodes) {
     let edges = current.unvisitedNeighbours(true);
     let next = edges[random(edges.length - 1)];
     while (next && (
-      next.visitedNeighbours().length > 2 || // TODO: multiple complexity options
+      next.visitedNeighbours().length > 1 ||
       next.isStartOrEnd()
     )) {
       let index = random(edges.length - 1);
@@ -38,7 +38,9 @@ async function recursiveBacktrack (nodes) {
     }
     if (next) {
       next.visited = true;
-      current.mark(NodeType.UNVISITED);
+      if (!current.equals(start)) {
+        current.mark(NodeType.UNVISITED);
+      }
       stack.push(current);
       current = next;
     } else if (stack.length > 0) {
@@ -59,11 +61,12 @@ async function depthFirstSearch (startNode, endNode) {
       throw new Error("Path doesn't exist");
     }
     let edges = current.unvisitedNeighbours();
-    await pause(3);
+    await pause(4);
     if (edges.length === 0) {
+      current.visited = true;
       current = branch.pop();
     } else {
-      const next = edges[0];
+      let next = edges[0];
       current.visited = true;
       from[next.id] = current;
       branch.push(next);
@@ -90,7 +93,7 @@ async function breathFirstSearch (startNode, endNode) {
       current.mark(NodeType.VISITED);
     }
     for (let next of current.neighbours()) {
-      await pause(3);
+      await pause(4);
       if (!from[next.id]) {
         if (!next.isStartOrEnd()) {
           next.mark(NodeType.VISITED);
