@@ -1,4 +1,4 @@
-# Path finding
+# Path finder
 
 Visualization of path finding algorithms.
 
